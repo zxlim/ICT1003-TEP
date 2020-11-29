@@ -1,5 +1,7 @@
 # Smart Bin Monitoring System
 ICT1003: Computer Organisation and Architecture
+<br />
+Team Exploration Project
 <br /><br />
 A system consisting of sensors to monitor rubbish bin capacity as well as a centralised monitoring dashboard for ease of accessibility.
 
@@ -11,13 +13,15 @@ A system consisting of sensors to monitor rubbish bin capacity as well as a cent
 - Ang Jin Yuan Raymous
 
 # Usage
-To be filled in.
+The backend code can be ran by using the following command.
 ```bash
-$ echo "To be filled in"
+$ python3 run.py
 ```
-
-# Notes
-- To be filled in.
+<br />
+However, the actual project uses a more advanced implementation, which executes the backend using Gunicorn and exposes it as a Unix Socket, with Nginx Web Server acting as the reverse proxy on TCP port 80 and handling all HTTP requests to the backend Unix Socket. All these will be running on a Raspberry Pi.
+<br />
+The TinyCircuits will be connected to the Raspberry Pi via WiFi hotspot running on the Raspberry Pi itself, and can be resolved via the domain "smartbin.sitict.net".
+The TinyCircuits will communicate with the backend via Nginx using the domain.
 
 # Project Hardware
 - [TinyZero Process Board](https://tinycircuits.com/collections/processors/products/tinyzero-processor)
@@ -29,7 +33,7 @@ $ echo "To be filled in"
 - [Soil Moisture Sensor Wireling](https://tinycircuits.com/collections/wireling-sensors/products/moisture-sensor-wireling)
 - Raspberry Pi 3
 
-*Note: All additional sensors were bought from [official distributors](https://tinycircuits.com/pages/https-tinycircuits-com-pages-our-distributors) (Mouser, DigiKey). 
+All additional sensors were bought from [official local distributors](https://tinycircuits.com/pages/https-tinycircuits-com-pages-our-distributors) (Mouser, DigiKey). 
 
 # License and Copyright Information
 This project is an assignment submission for the fulfillment of the module ICT1003 Computer Organisation and Architecture.
