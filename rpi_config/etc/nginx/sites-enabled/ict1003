@@ -1,0 +1,42 @@
+upstream controller_app {
+    server unix:/tmp/ict1003.sock fail_timeout=0;
+}
+
+server {
+    listen 80 default_server;
+    server_name smartbin.sitict.net;
+
+    add_header X-Frame-Options SAMEORIGIN;
+    add_header X-Content-Type-Options nosniff;
+    add_header X-XSS-Protection "1; mode=block";
+
+    # Let Nginx serve the static asset files for better performance.
+    location /static/ {
+        limit_except HEAD GET {
+            deny all;
+        }
+
+        root /opt/ICT1003/SmartBinController/bincontroller;
+        try_files $uri =404;
+    }
+
+    # All other requests will go to the Unix Socket if it is not found in
+    # the templates folder (E.g. When not requesting for the index file).
+    location / {
+        limit_except HEAD GET POST DELETE {
+            deny all;
+        }
+
+        root /opt/ICT1003/SmartBinController/bincontroller/templates;
+        try_files $uri @gunicorn;
+    }
+
+    location @gunicorn {
+        include proxy_params;
+        proxy_pass http://controller_app;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}

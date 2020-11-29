@@ -1,0 +1,12 @@
+[Unit]
+Description=ICT1003 SmartBin Controller Daemon
+After=multi-user.target network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/ICT1003/SmartBinController
+Environment="PATH=/opt/ICT1003/SmartBinController/venv/bin"
+ExecStart=/opt/ICT1003/SmartBinController/venv/bin/gunicorn --workers 3 --bind unix:/tmp/ict1003.sock -m 007 wsgi:app
+[Install]
+WantedBy=multi-user.target
