@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+################################################################################
+# ICT1003 Computer Organisation and Architecture
+# Team Exploration Project.
+#
+# SmartBin Controller Client-Side Code.
+# Onsen UI (https://onsen.io) is used for mobile-optimised UI experience.
+#
+# Unless otherwise stated, all code or content in this file is created
+# by and belongs to the Project Team.
+#
+# [ Group P3A ]
+# - Lim Zhao Xiang
+# - Gerald Peh
+# - Ryan Goh
+# - Teng Ming Hui
+# - Ang Jin Yuan Raymous
+################################################################################
+-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartBin Controller</title>
+
+    <link rel="icon" href="/static/img/favicon.png">
+    <link rel="apple-touch-icon" href="/static/img/favicon.png">
+
+    <link rel="stylesheet" href="/static/css/onsenui.min.css">
+    <link rel="stylesheet" href="/static/css/onsen-css-components.min.css" id="theme">
+    <link rel="stylesheet" href="/static/css/controller.css">
+</head>
+<body>
+    <ons-page>
+        <ons-tabbar swipeable position="auto">
+            <ons-tab page="home.html" label="Dashboard" icon="md-home" active></ons-tab>
+            <ons-tab page="data.html" label="Data Analytics" icon="md-chart"></ons-tab>
+            <ons-tab page="settings.html" label="Settings" icon="md-settings"></ons-tab>
+        </ons-tabbar>
+    </ons-page>
+
+    <template id="home.html">
+        <ons-page id="Home">
+            <ons-pull-hook id="dashboard_refresh">
+                Pull to refresh
+            </ons-pull-hook>
+
+            <p id="empty_dashboard" style="text-align: center;">
+                <br /><br />
+                No SmartBins found. Waiting for incoming SmartBin adoption requests...
+                <br /><br /><br />
+                <ons-progress-circular indeterminate></ons-progress-circular>
+            </p>
+            <ons-scroller id="HomeContent">
+                <ons-row class="smartbin-row">
+                    <!-- Bin Info Cards -->
+                </ons-row>
+            </ons-scroller>
+        </ons-page>
+    </template>
+
+    <template id="data.html">
+        <ons-page id="Data">
+            <ons-pull-hook id="data_refresh">
+                Pull to refresh
+            </ons-pull-hook>
+
+            <ons-row>
+                <ons-col>
+                    <ons-card style="background-color: #347C98; color: white;">
+                        <div class="title">
+                            <ons-icon icon="md-drink"></ons-icon>
+                            Leakage Alerts
+                        </div>
+                        <div class="content" style="color: white;">
+                            <h4><b id="data_count_leaking_smartbin">0</b></h4>
+                        </div>
+                    </ons-card>
+                </ons-col>
+                <ons-col>
+                    <ons-card style="background-color: #FD5D08; color: white;">
+                        <div class="title">
+                            <ons-icon icon="md-alert-circle"></ons-icon>
+                            Capacity Alerts
+                        </div>
+                        <div class="content" style="color: white;">
+                            <h4><b id="data_count_capacity_alerts">0</b></h4>
+                        </div>
+                    </ons-card>
+                </ons-col>
+                <ons-col>
+                    <ons-card style="background-color: #B84E14; color: white;">
+                        <div class="title">
+                            <ons-icon icon="md-map"></ons-icon>
+                            Location Count
+                        </div>
+                        <div class="content" style="color: white;">
+                            <h4><b id="data_count_location">0</b></h4>
+                        </div>
+                    </ons-card>
+                </ons-col>
+                <ons-col>
+                    <ons-card style="background-color: #341809; color: white;">
+                        <div class="title">
+                            <ons-icon icon="md-delete"></ons-icon>
+                            SmartBin Count
+                        </div>
+                        <div class="content" style="color: white;">
+                            <h4><b id="data_count_smartbins">0</b></h4>
+                        </div>
+                    </ons-card>
+                </ons-col>
+            </ons-row>
+
+            <ons-row>
+                <ons-col>
+                    <canvas id="chart_leakage_detection"></canvas>
+                </ons-col>
+                <ons-col>
+                    <canvas id="chart_capacity_alerts"></canvas>
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col>
+                    <canvas id="chart_clear_count"></canvas>
+                </ons-col>
+                <ons-col>
+                    <canvas id="chart_location_distribution"></canvas>
+                </ons-col>
+            </ons-row>
+        </ons-page>
+    </template>
+
+    <template id="settings.html">
+        <ons-page id="Settings">
+            <ons-list>
+                <ons-list-header>
+                    Dashboard
+                </ons-list-header>
+                <ons-list-item>
+                    <div class="center">
+                        Auto Refresh (Interval: 5 seconds)
+                    </div>
+                    <div class="right">
+                        <ons-switch id="AutoRefreshSwitch" checked></ons-switch>
+                    </div>
+                </ons-list-item>
+
+                <ons-list-header>
+                    Theme
+                </ons-list-header>
+                <ons-list-item>
+                    <div class="center">
+                        Dark Mode
+                    </div>
+                    <div class="right">
+                        <ons-switch id="DarkModeSwitch"></ons-switch>
+                    </div>
+                </ons-list-item>
+                
+                <ons-list-header>
+                    About
+                </ons-list-header>
+                <ons-list-item>
+                    <div class="center">
+                        Software Name
+                    </div>
+                    <div class="right">
+                        ICT1003 SmartBin Controller
+                    </div>
+                </ons-list-item>
+                <ons-list-item>
+                    <div class="center">
+                        Software Version
+                    </div>
+                    <div class="right">
+                        1.0.0
+                    </div>
+                </ons-list-item>
+                <ons-list-item>
+                    <div class="center">
+                        Software Platform
+                    </div>
+                    <div class="right">
+                        <span id="settings_controller_platform">NULL</span>
+                    </div>
+                </ons-list-item>
+
+                <ons-list-header>
+                    <br />
+                    ICT1003 Computer Organisation and Architecture, Team Exploration Project - Group P3A
+                </ons-list-header>
+                <ons-list-item>
+                    <div class="right">
+                        Lim Zhao Xiang
+                    </div>
+                </ons-list-item>
+                <ons-list-item>
+                    <div class="right">
+                        Gerald Peh
+                    </div>
+                </ons-list-item>
+                <ons-list-item>
+                    <div class="right">
+                        Ryan Goh
+                    </div>
+                </ons-list-item>
+                <ons-list-item>
+                    <div class="right">
+                        Teng Ming Hui
+                    </div>
+                </ons-list-item>
+                <ons-list-item>
+                    <div class="right">
+                        Ang Jin Yuan Raymous
+                    </div>
+                </ons-list-item>
+            </ons-list>
+        </ons-page>
+    </template>
+
+    <!-- Templates to manipulate using JavaScript -->
+    <template id="js_SmartBinRow">
+        <ons-row class="smartbin-row">
+        </ons-row>
+    </template>
+
+    <template id="js_SmartBinCard">
+        <ons-col class="smartbin-col">
+            <ons-card>
+                <div class="title" id="bin_name">NULL</div>
+                <div class="content">
+                    <ons-row>
+                        <ons-col>
+                            <div class="list-item__subtitle">
+                                Location: <span id="bin_location">NULL</span>
+                            </div>
+                        </ons-col>
+                    </ons-row>
+                    <ons-list>
+                        <ons-list-item>
+                            <div class="left">
+                                <div id="bin_capacity_icon">
+                                </div>
+                            </div>
+                            <div class="center">
+                                <span class="list-item__title" id="bin_capacity">0%</span>
+                                <span class="list-item__subtitle">
+                                    Current Capacity
+                                </span>
+                            </div>
+                            <div class="right" id="bin_leakage_icon">
+                                <!-- Leak Icon -->
+                            </div>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <div class="left">
+                                &nbsp;
+                                <ons-icon class="list-item__icon" icon="md-time"></ons-icon>
+                                &nbsp;
+                            </div>
+                            <div class="center">
+                                <span class="list-item__title" id="bin_lastcleared">Never cleared</span>
+                                <span class="list-item__subtitle">
+                                    Last Cleared
+                                </span>
+                            </div>
+                        </ons-list-item>
+                        <ons-list-item>
+                            <div class="left">
+                                &nbsp;
+                                <ons-icon class="list-item__icon" id="bin_lastactivity_icon" icon="md-portable-wifi"></ons-icon>
+                                &nbsp;
+                            </div>
+                            <div class="center">
+                                <span class="list-item__title" id="bin_lastactivity">Unknown</span>
+                                <span class="list-item__subtitle">
+                                    Last Log Received
+                                </span>
+                            </div>
+                        </ons-list-item>
+                    </ons-list>
+                </div>
+            </ons-card>
+        </ons-col>
+    </template>
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/onsenui.min.js"></script>
+    <script src="/static/js/chart.min.js"></script>
+    <script src="/static/js/controller.js"></script>
+</body>
+</html>

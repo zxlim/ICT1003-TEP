@@ -1,0 +1,48 @@
+/*
+ * ICT1003 Computer Organisation and Architecture
+ * Team Exploration Project.
+ *
+ * SmartBin Controller Client-Side Code.
+ * Onsen UI (https://onsen.io) is used for mobile-optimised UI experience.
+ *
+ * Unless otherwise stated, all code or content in this file is created
+ * by and belongs to the Project Team.
+ *
+ * [ Group P3A ]
+ * - Lim Zhao Xiang
+ * - Gerald Peh
+ * - Ryan Goh
+ * - Teng Ming Hui
+ * - Ang Jin Yuan Raymous
+*/
+
+@media (max-width: 550px) {
+    ons-row {
+        flex-direction: column;
+    }
+}
+
+
+.notification {
+    font-size: 13px;
+    height: 15px;
+    line-height: 16px;
+    min-width: 15px;
+    margin-left: 2px;
+}
+
+.svg-bin-icon {
+    width: 40px !important;
+    height: 40px !important;
+    display: block;
+    margin: 0;
+}
+
+
+/*
+ * Onsen UI dark mode prompt dialog input text colour fix.
+ * [ developer@zxlim.xyz ]
+*/
+.alert-dialog-content > .text-input--underbar {
+    color: #000;
+}
