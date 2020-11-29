@@ -19,7 +19,7 @@ $ python3 run.py
 ```
 <br />
 However, the actual project uses a more advanced implementation, which executes the backend using Gunicorn and exposes it as a Unix Socket, with Nginx Web Server acting as the reverse proxy on TCP port 80 and handling all HTTP requests to the backend Unix Socket. All these will be running on a Raspberry Pi.
-<br />
+<br /><br />
 The TinyCircuits will be connected to the Raspberry Pi via WiFi hotspot running on the Raspberry Pi itself, and can be resolved via the domain "smartbin.sitict.net".
 The TinyCircuits will communicate with the backend via Nginx using the domain.
 
