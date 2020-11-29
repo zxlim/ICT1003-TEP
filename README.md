@@ -3,6 +3,13 @@ ICT1003: Computer Organisation and Architecture
 <br /><br />
 A system consisting of sensors to monitor rubbish bin capacity as well as a centralised monitoring dashboard for ease of accessibility.
 
+## Team Members
+- Lim Zhao Xiang
+- Gerald Peh
+- Ryan Goh
+- Teng Ming Hui
+- Ang Jin Yuan Raymous
+
 # Usage
 To be filled in.
 ```bash
@@ -11,13 +18,6 @@ $ echo "To be filled in"
 
 # Notes
 - To be filled in.
-
-# Team Members
-- Lim Zhao Xiang
-- Gerald Peh
-- Ryan Goh
-- Teng Ming Hui
-- Ang Jin Yuan Raymous
 
 # Project Hardware
 - [TinyZero Process Board](https://tinycircuits.com/collections/processors/products/tinyzero-processor)
