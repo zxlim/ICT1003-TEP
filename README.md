@@ -13,7 +13,7 @@ $ echo "To be filled in"
 - To be filled in.
 
 # License and Copyright Information
-This project is an assignment submission for the fulfillment of the module ICT2203 Network Security.
+This project is an assignment submission for the fulfillment of the module ICT1003 Computer Organisation and Architecture.
 <br /><br />
 As such, copyright and any rights to this project shall belong to the project contributors as well as to [Singapore Institute of Technology (SIT)](https://www.singaporetech.edu.sg/).
 <br /><br />
