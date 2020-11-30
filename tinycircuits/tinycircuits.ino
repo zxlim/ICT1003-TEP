@@ -42,7 +42,7 @@
  *              CONSTANTS               *
 *****************************************/
 // Verbose Output to Serial Monitor: For development or diagnostic use only!
-#define VERBOSE_MODE        false
+#define VERBOSE_MODE        true
 
 // Controller information.
 #define API_ENDPOINT        "/trashbins"
@@ -74,7 +74,7 @@
 // Bin Depth in mm (For bin capacity calculation).
 #define BIN_DEPTH           145
 #define CAPACITY_OFFSET     2
-#define READ_COUNT          10
+#define READ_COUNT          20
 
 
 /****************************************
